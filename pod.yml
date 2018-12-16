@@ -8,7 +8,7 @@ spec:
     image: gcr.io/kaniko-project/executor:latest
     args: ["--dockerfile=/workspace/dockerfile",
             "--context=dir://workspace",
-            "--destination=<user-name>/<repo-name>"]
+            "--destination=debuggy/kaniko-example"] # you should change to your account name
     volumeMounts:
       - name: kaniko-secret
         mountPath: /root
