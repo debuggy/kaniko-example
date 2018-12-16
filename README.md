@@ -3,6 +3,14 @@
 This example was suitable for beginners who want to start using kaniko with local environment. It requires only general kubernetes and docker usage, and NO google cloud or aws or any third part cloud service support. It aims to help user establish a quick start successfully and deep dive after that.
 
 ## Table of Content
+1. [Prerequisities](#Prerequisities)
+2. [Install minikube to run kubernetes locally](#Install-minikube-to-run-kubernetes-locally)
+3. [Prepare config files for kaniko](#Prepare-config-files-for-kaniko)
+4. [Prepare the mounted directory in minikube](#Prepare-the-mounted-directory-in-minikube)
+5. [Create a Secret that holds your authorization token](#Create-a-Secret-that-holds-your-authorization-token)
+6. [Create resources in kubernetes](#Create-resources-in-kubernetes)
+7. [Pull the image and test](#Pull-the-image-and-test)
+
 
 
 ## Prerequisities
@@ -11,7 +19,7 @@ This example was suitable for beginners who want to start using kaniko with loca
 
 - Docker basic usage and a [dockerhub](https://hub.docker.com/) account to push built image public.
 
-## Install minikube to run a kubernetes locally
+## Install minikube to run kubernetes locally
 
 [Minikube](https://kubernetes.io/docs/setup/minikube/) is a simplest tool to run kubernetes locally. The installation differs based on the os and hypervisor you are using locally, for details please refer to [minikube installation guide](https://kubernetes.io/docs/tasks/tools/install-minikube/). Here in this example, I use ubuntu and virtual box as dependencies.
 ```
@@ -117,4 +125,17 @@ INFO[0007] ENTRYPOINT ["/bin/bash", "-c", "echo hello"]
 
 ## Pull the image and test
 
-If as expected, the kaniko will build image and push to dockerhub successfully. Pull the image to local
+If as expected, the kaniko will build image and push to dockerhub successfully. Pull the image to local and run it to test:
+
+```
+$ sudo docker run -it <user-name>/<repo-name>
+Unable to find image 'debuggy/dockertest:latest' locally
+latest: Pulling from debuggy/dockertest
+32802c0cfa4d: Already exists
+da1315cffa03: Already exists
+fa83472a3562: Already exists
+f85999a86bef: Already exists
+Digest: sha256:5706190951cbf69cfd880f010da015703a1fdca0f2f25b992c3b9193116bbd88
+Status: Downloaded newer image for debuggy/dockertest:latest
+hello
+```
