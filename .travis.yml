@@ -21,9 +21,9 @@ script:
 - kubectl create -f volume.yml
 - kubectl create -f volume-claim.yml
 - kubectl create -f pod.yml
-- JSONPATH='{@.status.phase}'; get pods kaniko -o jsonpath="$JSONPATH"
+- JSONPATH='{@.status.phase}'; kubectl get pods kaniko -o jsonpath="$JSONPATH"
 - sleep 200
-- JSONPATH='{@.status.phase}'; get pods kaniko -o jsonpath="$JSONPATH"
+- JSONPATH='{@.status.phase}'; kubectl get pods kaniko -o jsonpath="$JSONPATH"
 
 after_script:
 - docker run -it debuggy/kaniko-example
