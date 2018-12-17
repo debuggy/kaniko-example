@@ -14,7 +14,7 @@ before_script:
 # Download minikube.
 - curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.30.0/minikube-linux-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
 - mkdir -p $HOME/.minikube
-- cp -r kaniko $HOME/.minikube
+- cp -r kaniko $HOME/.minikube/files/
 - sudo minikube start --vm-driver=none --bootstrapper=kubeadm --kubernetes-version=v1.12.0
 # Fix the kubectl context, as it's often stale.
 - minikube update-context
@@ -25,9 +25,9 @@ script:
 - kubectl cluster-info
 # Verify kube-addon-manager.
 # kube-addon-manager is responsible for managing other kubernetes components, such as kube-dns, dashboard, storage-provisioner..
-- JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}'; until kubectl -n kube-system get pods -lcomponent=kube-addon-manager -o jsonpath="$JSONPATH" 2>&1 | grep -q "Ready=True"; do sleep 1;echo "waiting for kube-addon-manager to be available"; kubectl get pods --all-namespaces; done
+- JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}'; until kubectl -n kube-system get pods -lcomponent=kube-addon-manager -o jsonpath="$JSONPATH" 2>&1 | grep -q "Ready=True"; do sleep 1;echo "waiting for kube-addon-manager to be available"; done
 # Wait for kube-dns to be ready.
-- JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}'; until kubectl -n kube-system get pods -lk8s-app=kube-dns -o jsonpath="$JSONPATH" 2>&1 | grep -q "Ready=True"; do sleep 1;echo "waiting for kube-dns to be available"; kubectl get pods --all-namespaces; done
+- JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}'; until kubectl -n kube-system get pods -lk8s-app=kube-dns -o jsonpath="$JSONPATH" 2>&1 | grep -q "Ready=True"; do sleep 1;echo "waiting for kube-dns to be available"; done
 - kubectl cluster-info
 # create resources
 - kubectl create secret docker-registry regcred --docker-server=https://index.docker.io/v1/ --docker-username=debuggy --docker-password=${DOCKERHUB_PWD} --docker-email=tmldebug@gmail.com
@@ -38,7 +38,11 @@ script:
 - sleep 10
 - kubectl get pvc dockerfile-claim
 - kubectl create -f pod.yml
-- until kubectl get pods kaniko -o jsonpath="{@.status.phase}" 2>&1 | grep -q "Failed"; do sleep 1; done  
+# - until kubectl get pods kaniko -o jsonpath="{@.status.phase}" 2>&1 | grep -q "Failed"; do sleep 1; done  
+- sleep 50
+- kubectl get pods kaniko -o json
+- sleep 100
+- kubectl get pods kaniko -o json
 - kubectl logs kaniko
 
 after_script:
