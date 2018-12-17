@@ -20,6 +20,8 @@ before_script:
 - cd .minikube | pwd
 - cd ..
 - cd .minikube | pwd
+- cd ..
+- cd .minikube | pwd
 - sudo minikube start --vm-driver=none --kubernetes-version=v1.9.0
 # Fix the kubectl context, as it's often stale.
 - minikube update-context
