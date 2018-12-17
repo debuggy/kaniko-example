@@ -38,11 +38,9 @@ script:
 - sleep 10
 - kubectl get pvc dockerfile-claim
 - kubectl create -f pod.yml
-# - until kubectl get pods kaniko -o jsonpath="{@.status.phase}" 2>&1 | grep -q "Failed"; do sleep 1; done  
-- sleep 50
-- kubectl get pods kaniko -o json
-- sleep 100
-- kubectl get pods kaniko -o json
+- until kubectl get pods kaniko -o jsonpath="{@.status.phase}" 2>&1 | grep -q "Failed"; do sleep 1; done  
+# - sleep 50
+# - kubectl get pods kaniko -o json
 - kubectl logs kaniko
 
 after_script:
