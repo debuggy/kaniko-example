@@ -23,10 +23,9 @@ script:
 - kubectl get pv dockerfile -o json
 - kubectl create -f volume-claim.yml
 - sleep 10
-- kubectl get pvc dockerfile -o json
+- kubectl get pvc dockerfile-claim -o json
 - kubectl create -f pod.yml
 - kubectl get pods kaniko -o json 
-- kubectl get pods kaniko -o jsonpath="{@.status.phase}"
 - sleep 200
 - kubectl get pods kaniko -o json 
 - sleep 200
