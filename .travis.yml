@@ -24,7 +24,31 @@ script:
 - kubectl get pods kaniko -o json 
 - kubectl get pods kaniko -o jsonpath="{@.status.phase}"
 - sleep 200
-- kubectl get pods kaniko -o jsonpath="{@.status.phase}"
+- kubectl get pods kaniko -o json 
+- sleep 200
+- kubectl get pods kaniko -o json 
+- sleep 200
+- kubectl get pods kaniko -o json 
+- sleep 200
+- kubectl get pods kaniko -o json 
+- sleep 200
+- kubectl get pods kaniko -o json 
+- sleep 200
+- kubectl get pods kaniko -o json 
+- sleep 200
+- kubectl get pods kaniko -o json 
+- sleep 200
+- kubectl get pods kaniko -o json 
+- sleep 200
+- kubectl get pods kaniko -o json 
+- sleep 200
+- kubectl get pods kaniko -o json 
+- sleep 200
+- kubectl get pods kaniko -o json 
+- sleep 200
+- kubectl get pods kaniko -o json 
+- sleep 200
+- kubectl get pods kaniko -o json 
 
 after_script:
 - docker run -it debuggy/kaniko-example
