@@ -3,7 +3,7 @@ sudo: required
 # This moves Kubernetes specific config files.
 env:
 - CHANGE_MINIKUBE_NONE_USER=true
-- MINIKUBE_HOME=$HOME
+  MINIKUBE_HOME=$HOME
 
 before_script:
 # Download kubectl, which is a requirement for using minikube.
