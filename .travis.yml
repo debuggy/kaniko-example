@@ -13,7 +13,7 @@ before_script:
 - curl -Lo kubectl https://storage.googleapis.com/kubernetes-release/release/v1.12.0/bin/linux/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
 # Download minikube.
 - curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.30.0/minikube-linux-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
-- cp -r kaniko /home
+- sudo cp -r kaniko /home
 - sudo minikube start --vm-driver=none --bootstrapper=kubeadm --kubernetes-version=v1.12.0
 # Fix the kubectl context, as it's often stale.
 - minikube update-context
