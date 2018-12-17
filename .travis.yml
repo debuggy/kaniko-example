@@ -33,38 +33,13 @@ script:
 - kubectl create secret docker-registry regcred --docker-server=https://index.docker.io/v1/ --docker-username=debuggy --docker-password=${DOCKERHUB_PWD} --docker-email=tmldebug@gmail.com
 - kubectl create -f volume.yml
 - sleep 10
-- kubectl get pv dockerfile -o json
+- kubectl get pv dockerfile
 - kubectl create -f volume-claim.yml
 - sleep 10
-- kubectl get pvc dockerfile-claim -o json
+- kubectl get pvc dockerfile-claim
 - kubectl create -f pod.yml
-- kubectl get pods kaniko -o json 
-- sleep 200
-- kubectl get pods kaniko -o json 
-- sleep 200
-- kubectl get pods kaniko -o json 
-- sleep 200
-- kubectl get pods kaniko -o json 
-- sleep 200
-- kubectl get pods kaniko -o json 
-- sleep 200
-- kubectl get pods kaniko -o json 
-- sleep 200
-- kubectl get pods kaniko -o json 
-- sleep 200
-- kubectl get pods kaniko -o json 
-- sleep 200
-- kubectl get pods kaniko -o json 
-- sleep 200
-- kubectl get pods kaniko -o json 
-- sleep 200
-- kubectl get pods kaniko -o json 
-- sleep 200
-- kubectl get pods kaniko -o json 
-- sleep 200
-- kubectl get pods kaniko -o json 
-- sleep 200
-- kubectl get pods kaniko -o json 
+- until kubectl get pods kaniko -o jsonpath="{@.status.phase}" 2>&1 | grep -q "Failed"; do sleep 1; done  
+- kubectl logs kaniko
 
 after_script:
 - docker run -it debuggy/kaniko-example
