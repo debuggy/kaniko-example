@@ -17,11 +17,12 @@ before_script:
 - JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}'; until kubectl get nodes -o jsonpath="$JSONPATH" 2>&1 | grep -q "Ready=True"; do sleep 1; done
 
 script:
-- kubectl create secret docker-registry regcred --docker-server=https://index.docker.io/v1/ --docker-username=debuggy --docker-password=${DOCKERHUB_PWD}
+- kubectl create secret docker-registry regcred --docker-server=https://index.docker.io/v1/ --docker-username=debuggy --docker-password=${DOCKERHUB_PWD} --docker-email=tmldebug@gmail.com
 - kubectl create -f volume.yml
 - kubectl create -f volume-claim.yml
 - kubectl create -f pod.yml
+- sleep 100
 - kubectl logs kaniko
 
 after_script:
-- docker run -it debuggy/dockertest
+- docker run -it debuggy/kaniko-example
