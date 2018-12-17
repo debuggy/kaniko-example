@@ -11,4 +11,4 @@ spec:
     - ReadWriteOnce
   storageClassName: local-storage
   hostPath:
-    path: "/data/kaniko"
+    path: "/hosthome/travis/build/debuggy/kaniko-example/kaniko"
