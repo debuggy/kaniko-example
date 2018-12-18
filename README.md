@@ -64,7 +64,7 @@ $ pwd
 /home/docker/kaniko
 ```
 
-> Note: It is important to notice that the "hostPath" set in the volume.yml denotes to the path in the virtaul minikube cluster, NOT in the local. So you should run ```minikube ssh``` command first! 
+> Note: It is important to notice that the "hostPath" set in the volume.yml denotes to the path in the virtaul minikube cluster, NOT in the local. So you should run ```minikube ssh``` command first. Or you could use other ways to mount a local directory into minikube vm, including ```minikube mount```, default host folders, etc.
 
 ## Create a Secret that holds your authorization token
 A Kubernetes cluster uses the Secret of docker-registry type to authenticate with a docker registry to push an image.
@@ -120,7 +120,7 @@ INFO[0007] ENTRYPOINT ["/bin/bash", "-c", "echo hello"]
 2018/12/16 11:33:39 existing blob: sha256:f85999a86bef2603a9e9a4fa488a7c1f82e471cbb76c3b5068e54e1a9320964a
 2018/12/16 11:33:39 existing blob: sha256:fa83472a3562898caaf8d77542181a473a84039376f2ba56254619d9317ba00d
 2018/12/16 11:33:40 pushed blob sha256:84e6f8e8c18e55599c4f7c8c3ccb52867fdc398aaeccef85750a40e66fc634c1
-2018/12/16 11:33:41 index.docker.io/debuggy/dockertest:latest: digest: sha256:5706190951cbf69cfd880f010da015703a1fdca0f2f25b992c3b9193116bbd88 size: 909
+2018/12/16 11:33:41 index.docker.io/<user-name>/<repo-name>:latest: digest: sha256:5706190951cbf69cfd880f010da015703a1fdca0f2f25b992c3b9193116bbd88 size: 909
 ```
 
 ## Pull the image and test
@@ -129,13 +129,13 @@ If as expected, the kaniko will build image and push to dockerhub successfully. 
 
 ```
 $ sudo docker run -it <user-name>/<repo-name>
-Unable to find image 'debuggy/dockertest:latest' locally
-latest: Pulling from debuggy/dockertest
+Unable to find image '<user-name>/<repo-name>:latest' locally
+latest: Pulling from <user-name>/<repo-name>
 32802c0cfa4d: Already exists
 da1315cffa03: Already exists
 fa83472a3562: Already exists
 f85999a86bef: Already exists
 Digest: sha256:5706190951cbf69cfd880f010da015703a1fdca0f2f25b992c3b9193116bbd88
-Status: Downloaded newer image for debuggy/dockertest:latest
+Status: Downloaded newer image for <user-name>/<repo-name>:latest
 hello
 ```
