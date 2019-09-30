@@ -1,5 +1,7 @@
 # kaniko-example
 
+***This example has been archived and merged as official kaniko tutorial.*** You could still try to go through this example, while it will not be ensured.
+
 This example was suitable for beginners who want to start using kaniko with local environment. It requires only general kubernetes and docker usage, and NO google cloud or aws or any third part cloud service support. It aims to help user establish a quick start successfully and deep dive after that.
 
 ## Table of Content
